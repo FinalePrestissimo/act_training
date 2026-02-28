@@ -166,7 +166,7 @@ class CNNMLP(nn.Module):
                 backbone_down_projs.append(down_proj)
             self.backbone_down_projs = nn.ModuleList(backbone_down_projs)
 
-            mlp_in_dim = 768 * len(backbones) + 14
+            mlp_in_dim = 768 * len(backbones) + state_dim
             self.mlp = mlp(input_dim=mlp_in_dim, hidden_dim=1024, output_dim=state_dim, hidden_depth=2)
         else:
             raise NotImplementedError
@@ -226,7 +226,7 @@ def build_encoder(args):
 
 
 def build(args):
-    state_dim = 14  # TODO hardcode
+    state_dim = args.state_dim
 
     # From state
     # backbone = None # from state for now, no need for conv nets
@@ -255,7 +255,7 @@ def build(args):
 
 
 def build_cnnmlp(args):
-    state_dim = 16  # TODO hardcode
+    state_dim = args.state_dim
 
     # From state
     # backbone = None # from state for now, no need for conv nets
